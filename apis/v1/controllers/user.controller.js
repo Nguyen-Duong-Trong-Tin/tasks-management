@@ -131,10 +131,13 @@ const login = async (req, res) => {
         refresh_token: refreshToken
       }
     });
-  } catch {
+  } catch(e) {
+    console.log(e);
+    
     return res.status(500).json({
       status: false,
-      message: "Something went wrong."
+      message: "Something went wrong.",
+      error: e
     });
   }
 }
