@@ -131,13 +131,10 @@ const login = async (req, res) => {
         refresh_token: refreshToken
       }
     });
-  } catch(e) {
-    console.log(e);
-    
+  } catch {
     return res.status(500).json({
       status: false,
-      message: "Something went wrong.",
-      error: e
+      message: "Something went wrong."
     });
   }
 }
@@ -318,6 +315,7 @@ const resetPassword = async (req, res) => {
 }
 
 const userController = {
+  get,
   getMe,
   register,
   login,

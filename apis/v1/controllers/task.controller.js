@@ -31,11 +31,19 @@ const get = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const id = req.params.id;
-    const task = await taskService.findById(id);
+
+    const taskExists = await taskService.findById(id);
+    if (!taskExists) {
+      return res.status(404).json({
+        status: false,
+        message: "Task id not found."
+      });
+    }
+
     return res.status(200).json({
       status: true,
       message: "Task found.",
-      data: task
+      data: taskExists
     });
   } catch {
     return res.status(500).json({

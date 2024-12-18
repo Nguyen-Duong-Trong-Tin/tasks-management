@@ -2,12 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const deserializeUser = require("../middlewares/deserializeUser.middleware");
+const restrictTo = require("../middlewares/restrictTo.middleware");
 const validate = require("../validates/user.validate");
 
 const controller = require("../controllers/user.controller");
 
 router.get(
-  "/me",
+  "/get",
+  [deserializeUser, restrictTo(["ADMIN"])],
+  controller.get
+);
+router.get(
+  "/get/me",
   [deserializeUser],
   controller.getMe
 );
